@@ -63,7 +63,6 @@ describe('Тестирование формы логина', function () {
         cy.get('#exitMessageButton > .exitIcon').should('be.visible');
     })
    
-   describe('Тестирование заказа товара', function () {
    it('Добавление товара и оформление заказа', function () {
         cy.visit('https://huntingpony.com/');                                       // Заходим на сайт
         cy.get('[href="/collection/lezhanki"] > .banner-list__item-title').click(); // Заходим в катоалог
