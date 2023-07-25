@@ -63,31 +63,17 @@ describe('Тестирование формы логина', function () {
         cy.get('#exitMessageButton > .exitIcon').should('be.visible');
     })
    
-   it('Заказ товара в количестве 2 шт и оформление', function() {
-    // Шаг 1: Открываем главную страницу
-    cy.visit('https://huntingpony.com/');
-
-    // Шаг 2: Открываем карточку товара
-    cy.get('.product-item').first().click();
-
-    // Шаг 3: Положили товар в корзину и изменили количество на 2
-    cy.get('.add-to-cart').click();
-    cy.get('.cart-quantity').type('2');
-
-    // Шаг 4: Переходим в корзину
-    cy.get('.cart-link').click();
-
-    // Шаг 5: Нажимаем кнопку оформления заказа
-    cy.get('.checkout-button').click();
-
-    // Шаг 6: Проверяем наличие текста "Оформление заказа"
-    cy.contains('Оформление заказа').should('be.visible');
-
-    // Дополнительный шаг: Заполняем поля данных для заказа 
-    cy.get('input[name="name"]').type('John Doe');
-    cy.get('input[name="address"]').type('123 Main St');
-    cy.get('input[name="email"]').type('johndoe@example.com');
+   describe('Тестирование заказа товара', function () {
+   it('Добавление товара и оформление заказа', function () {
+        cy.visit('https://huntingpony.com/');                                       // Заходим на сайт
+        cy.get('[href="/collection/lezhanki"] > .banner-list__item-title').click(); // Заходим в катоалог
+        cy.get('[data-product-id="338933592"] > .product-preview__content > .product-preview__area-photo > .product-preview__photo > .img-ratio > .img-ratio__inner > a > :nth-child(1) > .product-preview__img-1').click(); // Заходим в карточку товара
+        cy.wait(5000);                                                              // Ожидание для подгрузки страницы
+        cy.get('.add-cart-counter__btn-label').click();                             // Добавляем товар в корзину
+        cy.get('.header__cart > .icon').click();                                    // Переходим в корзину
+        cy.get('.cart-controls > .button').click();                                 // Нажимаем оформить заказ
+        cy.contains('Оформление заказа').should('be.visible');                      // Проверяем что перешел на страницу Оформления по наличию Фразы
    })
 })
-
+   
 
