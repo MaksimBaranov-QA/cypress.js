@@ -62,6 +62,32 @@ describe('Тестирование формы логина', function () {
         cy.contains('Авторизация прошла успешно').should('be.visible');
         cy.get('#exitMessageButton > .exitIcon').should('be.visible');
     })
+   
+   it('Заказ товара в количестве 2 шт и оформление', function() {
+    // Шаг 1: Открываем главную страницу
+    cy.visit('https://huntingpony.com/');
+
+    // Шаг 2: Открываем карточку товара
+    cy.get('.product-item').first().click();
+
+    // Шаг 3: Положили товар в корзину и изменили количество на 2
+    cy.get('.add-to-cart').click();
+    cy.get('.cart-quantity').type('2');
+
+    // Шаг 4: Переходим в корзину
+    cy.get('.cart-link').click();
+
+    // Шаг 5: Нажимаем кнопку оформления заказа
+    cy.get('.checkout-button').click();
+
+    // Шаг 6: Проверяем наличие текста "Оформление заказа"
+    cy.contains('Оформление заказа').should('be.visible');
+
+    // Дополнительный шаг: Заполняем поля данных для заказа 
+    cy.get('input[name="name"]').type('John Doe');
+    cy.get('input[name="address"]').type('123 Main St');
+    cy.get('input[name="email"]').type('johndoe@example.com');
+   })
 })
 
 
